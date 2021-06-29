@@ -15,7 +15,7 @@ type pullRequestType = {
 };
 
 type PullRequestListProps = {
-    prType: string;
+  prType: string;
 };
 
 const PullRequestList: FC<PullRequestListProps> = ({ prType }) => {
@@ -72,6 +72,16 @@ const PullRequestList: FC<PullRequestListProps> = ({ prType }) => {
       />
     );
   });
+
+  const { CancelToken } = axios;
+  let cancel;
+
+  axios.get('https://api.realdevsquad.com/user', {
+    cancelToken: new CancelToken((c) => {
+      cancel = c;
+    }),
+  });
+  cancel();
 
   return (
     <Layout>
